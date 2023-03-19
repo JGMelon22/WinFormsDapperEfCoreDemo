@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Microsoft.EntityFrameworkCore;
 using System.Data;
 using WinFormsDapperDemo.Data;
 using WinFormsDapperDemo.Interfaces;
@@ -38,7 +37,7 @@ public class PessoaRepository : IPessoaRepository
 	{
 		var getPessoasTelefonesQuery = @"SELECT TOP 500 p.PessoaId,
                                             			p.Nome,
-                                            			t.IdTelefone,
+                                            			t.TelefoneId,
                                             			t.TelefoneTexto,
                                             			t.PessoaId,
                                             			t.Ativo
@@ -61,7 +60,7 @@ public class PessoaRepository : IPessoaRepository
 			return pessoa;
 		},
 
-		splitOn: "IdTelefone");
+		splitOn: "TelefoneId");
 
 		var result = pessoas.ToList();
 
@@ -80,6 +79,13 @@ public class PessoaRepository : IPessoaRepository
 										  Nome = p.Nome,
 										  TelefoneTexto = t.TelefoneTexto,
 										  Ativo = t.Ativo
+									  })
+									  .Select(x => new PessoaTelefone()
+									  {
+										  PessoaId = x.PessoaId,
+										  Nome = x.Nome,
+										  TelefoneTexto = x.TelefoneTexto,
+										  Ativo = x.Ativo
 									  }).Take(500).AsNoTracking().ToListAsync();
 
 		return pessoasTelefones;

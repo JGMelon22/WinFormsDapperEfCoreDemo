@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WinFormsDapperDemo.Models;
+﻿using WinFormsDapperDemo.Models;
 
 namespace WinFormsDapperDemo.Data;
 
