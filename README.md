@@ -5,6 +5,7 @@ Fetching data from SQL Server using EF Core and Dapper to display at a ListBox. 
 - dapper </br>
 - Microsoft.Data.SqlClient </br>
 - Microsoft.EntityFrameworkCore </br>
+- Microsoft.EntityFrameworkCore.Design </br>
 - Microsoft.EntityFrameworkCore.SqlServer </br>
 - Microsoft.Extensions.Configuration.Json </br>
 - Microsoft.Extensions.Hosting 
