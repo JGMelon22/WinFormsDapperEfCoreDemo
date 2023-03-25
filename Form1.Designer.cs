@@ -43,7 +43,7 @@ partial class Form1
 		listBox1.ItemHeight = 31;
 		listBox1.Location = new Point(12, 12);
 		listBox1.Name = "listBox1";
-		listBox1.Size = new Size(662, 283);
+		listBox1.Size = new Size(784, 314);
 		listBox1.TabIndex = 0;
 		// 
 		// button1
@@ -52,7 +52,7 @@ partial class Form1
 		button1.Cursor = Cursors.Hand;
 		button1.FlatStyle = FlatStyle.Flat;
 		button1.ForeColor = Color.FromArgb(248, 248, 242);
-		button1.Location = new Point(541, 301);
+		button1.Location = new Point(663, 336);
 		button1.Name = "button1";
 		button1.Size = new Size(133, 35);
 		button1.TabIndex = 1;
@@ -66,7 +66,7 @@ partial class Form1
 		button2.Cursor = Cursors.Hand;
 		button2.FlatStyle = FlatStyle.Flat;
 		button2.ForeColor = Color.FromArgb(248, 248, 242);
-		button2.Location = new Point(373, 301);
+		button2.Location = new Point(495, 336);
 		button2.Name = "button2";
 		button2.Size = new Size(162, 35);
 		button2.TabIndex = 2;
@@ -79,7 +79,7 @@ partial class Form1
 		AutoScaleDimensions = new SizeF(10F, 25F);
 		AutoScaleMode = AutoScaleMode.Font;
 		BackColor = Color.FromArgb(40, 42, 54);
-		ClientSize = new Size(686, 346);
+		ClientSize = new Size(808, 383);
 		Controls.Add(button2);
 		Controls.Add(button1);
 		Controls.Add(listBox1);

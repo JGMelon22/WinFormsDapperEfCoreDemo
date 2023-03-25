@@ -33,22 +33,26 @@ public class PessoaRepository : IPessoaRepository
 		return result.ToList();
 	}
 
-	public async Task<IEnumerable<Pessoa>> GetPessoasTelefones()
+	public async Task<IEnumerable<Pessoa>> GetPessoasTelefonesDetalhes()
 	{
 		var getPessoasTelefonesQuery = @"SELECT TOP 500 p.PessoaId,
-                                            			p.Nome,
-                                            			t.TelefoneId,
-                                            			t.TelefoneTexto,
-                                            			t.PessoaId,
-                                            			t.Ativo
-                                         FROM Pessoas p
-                                         INNER JOIN Telefones t
-                                         	ON p.PessoaId = t.PessoaId
+										 		        p.Nome,
+										 		        t.TelefoneId,
+										 		        t.TelefoneTexto,
+										 		        t.PessoaId,
+										 		        t.Ativo,
+														d.DetalheId,
+										 			    d.DetalheTexto
+										 FROM Pessoas p
+										 INNER JOIN Telefones t
+										 	ON p.PessoaId = t.PessoaId
+										 INNER JOIN Detalhes d
+										 	ON p.PessoaId = d.PessoaId
 										 ORDER BY p.PessoaId ASC;";
 
 		_dbConnection.Open();
 
-		var pessoas = await _dbConnection.QueryAsync<Pessoa, Telefone, Pessoa>(getPessoasTelefonesQuery, (pessoa, telefone) =>
+		var pessoas = await _dbConnection.QueryAsync<Pessoa, Telefone, Detalhe, Pessoa>(getPessoasTelefonesQuery, (pessoa, telefone, detalhe) =>
 		{
 			// Verifica se o Objeto telefone foi inicializado, se não, inicia
 			if (pessoa.Telefones == null)
@@ -56,11 +60,17 @@ public class PessoaRepository : IPessoaRepository
 				pessoa.Telefones = new List<Telefone>();
 			}
 
+			if (pessoa.Detalhes == null)
+			{
+				pessoa.Detalhes = new List<Detalhe>();
+			}
+
 			pessoa.Telefones.Add(telefone);
+			pessoa.Detalhes.Add(detalhe);
 			return pessoa;
 		},
 
-		splitOn: "TelefoneId");
+		splitOn: "TelefoneId, DetalheId");
 
 		var result = pessoas.ToList();
 
@@ -69,23 +79,26 @@ public class PessoaRepository : IPessoaRepository
 		return result;
 	}
 
-	public async Task<IEnumerable<PessoaTelefone>> GetPessoasTelefonesEfCore()
+	public async Task<IEnumerable<PessoaTelefoneDetalhe>> GetPessoasTelefonesDetalhesEfCore()
 	{
 		var pessoasTelefones = await (from p in _context.Pessoas
 									  join t in _context.Telefones on p.PessoaId equals t.PessoaId
-									  select new PessoaTelefone()
+									  join d in _context.Detalhes on p.PessoaId equals d.PessoaId
+									  select new PessoaTelefoneDetalhe()
 									  {
 										  PessoaId = p.PessoaId,
 										  Nome = p.Nome,
 										  TelefoneTexto = t.TelefoneTexto,
-										  Ativo = t.Ativo
+										  Ativo = t.Ativo,
+										  DetalheTexto = d.DetalheTexto
 									  })
-									  .Select(x => new PessoaTelefone()
+									  .Select(x => new PessoaTelefoneDetalhe()
 									  {
 										  PessoaId = x.PessoaId,
 										  Nome = x.Nome,
 										  TelefoneTexto = x.TelefoneTexto,
-										  Ativo = x.Ativo
+										  Ativo = x.Ativo,
+										  DetalheTexto = x.DetalheTexto
 									  }).Take(500).AsNoTracking().ToListAsync();
 
 		return pessoasTelefones;

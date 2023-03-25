@@ -6,6 +6,6 @@ namespace WinFormsDapperDemo.Interfaces;
 public interface IPessoaRepository
 {
 	Task<IEnumerable<Pessoa>> GetPessoas();
-	Task<IEnumerable<Pessoa>> GetPessoasTelefones();
-	Task<IEnumerable<PessoaTelefone>> GetPessoasTelefonesEfCore();
+	Task<IEnumerable<Pessoa>> GetPessoasTelefonesDetalhes();
+	Task<IEnumerable<PessoaTelefoneDetalhe>> GetPessoasTelefonesDetalhesEfCore();
 }

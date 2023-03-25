@@ -12,4 +12,5 @@ public class Pessoa
 	[Column("Nome"), DataType("VARCHAR(100)")]
 	public string Nome { get; set; } = string.Empty!;
 	public List<Telefone> Telefones { get; set; }
+	public List<Detalhe> Detalhes { get; set; }
 }
