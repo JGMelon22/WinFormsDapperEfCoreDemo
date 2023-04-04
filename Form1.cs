@@ -47,7 +47,7 @@ public partial class Form1 : Form
 		var peoplePhone = await _repository.GetPessoasTelefonesDetalhes();
 
 		foreach (var item in peoplePhone)
-			listBox1.Items.Add(item.PessoaId + " - " + item.Nome + " - " + item.Telefones.Select(x => x.TelefoneTexto).FirstOrDefault() + " - " + item.Telefones.Select(x => x.Ativo).FirstOrDefault() + " - " + item.Detalhes.Select(x=>x.DetalheTexto).FirstOrDefault());
+			listBox1.Items.Add(item.PessoaId + " - " + item.Nome + " - " + item.Telefones.Select(x => x.TelefoneTexto).FirstOrDefault() + " - " + item.Telefones.Select(x => x.Ativo).FirstOrDefault() + " - " + item.Detalhes.Select(x => x.DetalheTexto).FirstOrDefault());
 
 		Cursor = Cursors.Default;
 	}
@@ -62,6 +62,19 @@ public partial class Form1 : Form
 
 		foreach (var item in peoplePhone)
 			listBox1.Items.Add(item.PessoaId + " - " + item.Nome + " - " + item.TelefoneTexto + " - " + item.Ativo + " - " + item.DetalheTexto);
+
+		Cursor = Cursors.Default;
+	}
+
+	private async void button3_Click(object sender, EventArgs e)
+	{
+		Cursor = Cursors.WaitCursor;
+
+		listBox1.Items.Clear();
+
+		var pessoas = await _repository.GetPessoasEfCore();
+		foreach (var item in pessoas)
+			listBox1.Items.Add(item.PessoaId + " - " + item.Nome);
 
 		Cursor = Cursors.Default;
 	}

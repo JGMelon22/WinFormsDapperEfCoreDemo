@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace WinFormsDapperDemo.Models;
+﻿namespace WinFormsDapperDemo.Models;
 
 [Table("Detalhes")]
 [Index(nameof(DetalheId))]
@@ -12,10 +10,10 @@ public class Detalhe
 	public int DetalheId { get; set; }
 
 	[Column("DetalheTexto", TypeName = "VARCHAR(255)")]
-    [Required]
+	[Required]
 	public string DetalheTexto { get; set; } = string.Empty!;
 
 	[ForeignKey("PessoaId")]
-    public int PessoaId { get; set; }
-    public Pessoa Pessoa { get; set; }
+	public int PessoaId { get; set; }
+	public Pessoa Pessoa { get; set; }
 }

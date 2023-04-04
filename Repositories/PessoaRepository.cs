@@ -33,6 +33,19 @@ public class PessoaRepository : IPessoaRepository
 		return result.ToList();
 	}
 
+	// Only Pessoas Id and Nome
+	public async Task<List<PessoaViewModel>> GetPessoasEfCore()
+	{
+		var pessoas = await _context.Pessoas.AsNoTracking().Take(500).ToListAsync();
+		var pessoaViewModel = pessoas.Select(x => new PessoaViewModel
+		{
+			PessoaId = x.PessoaId,
+			Nome = x.Nome
+		}).ToList();
+
+		return pessoaViewModel;
+	}
+
 	public async Task<IEnumerable<Pessoa>> GetPessoasTelefonesDetalhes()
 	{
 		var getPessoasTelefonesQuery = @"SELECT TOP 500 p.PessoaId,

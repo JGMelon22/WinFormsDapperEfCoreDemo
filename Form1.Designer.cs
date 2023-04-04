@@ -32,6 +32,7 @@ partial class Form1
 		listBox1 = new ListBox();
 		button1 = new Button();
 		button2 = new Button();
+		button3 = new Button();
 		SuspendLayout();
 		// 
 		// listBox1
@@ -74,12 +75,27 @@ partial class Form1
 		button2.UseVisualStyleBackColor = false;
 		button2.Click += button2_Click;
 		// 
+		// button3
+		// 
+		button3.BackColor = Color.FromArgb(189, 147, 249);
+		button3.Cursor = Cursors.Hand;
+		button3.FlatStyle = FlatStyle.Flat;
+		button3.ForeColor = Color.FromArgb(248, 248, 242);
+		button3.Location = new Point(292, 336);
+		button3.Name = "button3";
+		button3.Size = new Size(197, 35);
+		button3.TabIndex = 3;
+		button3.Text = "Listar Pessoas Simples";
+		button3.UseVisualStyleBackColor = false;
+		button3.Click += button3_Click;
+		// 
 		// Form1
 		// 
 		AutoScaleDimensions = new SizeF(10F, 25F);
 		AutoScaleMode = AutoScaleMode.Font;
 		BackColor = Color.FromArgb(40, 42, 54);
 		ClientSize = new Size(808, 383);
+		Controls.Add(button3);
 		Controls.Add(button2);
 		Controls.Add(button1);
 		Controls.Add(listBox1);
@@ -100,4 +116,5 @@ partial class Form1
 	private ListBox listBox1;
 	private Button button1;
 	private Button button2;
+	private Button button3;
 }
