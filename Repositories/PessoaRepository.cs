@@ -17,23 +17,27 @@ public class PessoaRepository : IPessoaRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Pessoa>> GetPessoas()
+	// Only Pessoas Id and Nome
+	public async Task<List<PessoaViewModel>> GetPessoas()
 	{
 		var getPessoasQuery = @"SELECT TOP 500 PessoaId,
-											   Nome
-								FROM Pessoas
-								ORDER BY PessoaId ASC;";
+										       Nome
+								FROM Pessoas;";
 
 		_dbConnection.Open();
 
 		var result = await _dbConnection.QueryAsync<Pessoa>(getPessoasQuery);
+		var mappedResult = result.Select(x => new PessoaViewModel // Mapeia manualmente
+		{
+			PessoaId = x.PessoaId,
+			Nome = x.Nome
+		});
 
 		_dbConnection.Close();
 
-		return result.ToList();
+		return mappedResult.ToList();
 	}
 
-	// Only Pessoas Id and Nome
 	public async Task<List<PessoaViewModel>> GetPessoasEfCore()
 	{
 		var pessoas = await _context.Pessoas.AsNoTracking().Take(500).ToListAsync();
@@ -46,6 +50,7 @@ public class PessoaRepository : IPessoaRepository
 		return pessoaViewModel;
 	}
 
+	// Join between Tables Telefones, Pessoas e Detalhes
 	public async Task<IEnumerable<Pessoa>> GetPessoasTelefonesDetalhes()
 	{
 		var getPessoasTelefonesQuery = @"SELECT TOP 500 p.PessoaId,

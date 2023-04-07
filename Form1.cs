@@ -25,7 +25,10 @@ public partial class Form1 : Form
 
 	private void Form1_Load(object sender, EventArgs e)
 	{
+		listBox1.HorizontalScrollbar = true;
+
 		listBox1.Items.Clear();
+		button5.Enabled = false;
 
 		// Caption ao passar cursor em cima dos botões
 		var btn = new ToolTip();
@@ -34,12 +37,21 @@ public partial class Form1 : Form
 		btn.InitialDelay = 1000;
 		btn.ReshowDelay = 500;
 
-		btn.SetToolTip(button1, "Buscar com Dapper");
-		btn.SetToolTip(button2, "Buscar com EF Core");
+		btn.SetToolTip(button1, "Join query with Dapper");
+		btn.SetToolTip(button2, "Join query with EF Core");
+		btn.SetToolTip(button3, "Query with EF Core");
+		btn.SetToolTip(button4, "Query with Dapper");
+		btn.SetToolTip(button5, "Clear Results");
 	}
 
 	private async void button1_Click(object sender, EventArgs e)
 	{
+		button1.Enabled = false;
+		button2.Enabled = false;
+		button3.Enabled = false;
+		button4.Enabled = false;
+		button5.Enabled = false;
+
 		Cursor = Cursors.WaitCursor;
 
 		listBox1.Items.Clear();
@@ -50,10 +62,22 @@ public partial class Form1 : Form
 			listBox1.Items.Add(item.PessoaId + " - " + item.Nome + " - " + item.Telefones.Select(x => x.TelefoneTexto).FirstOrDefault() + " - " + item.Telefones.Select(x => x.Ativo).FirstOrDefault() + " - " + item.Detalhes.Select(x => x.DetalheTexto).FirstOrDefault());
 
 		Cursor = Cursors.Default;
+
+		button1.Enabled = true;
+		button2.Enabled = true;
+		button3.Enabled = true;
+		button4.Enabled = true;
+		button5.Enabled = true;
 	}
 
 	private async void button2_Click(object sender, EventArgs e)
 	{
+		button1.Enabled = false;
+		button2.Enabled = false;
+		button3.Enabled = false;
+		button4.Enabled = false;
+		button5.Enabled = false;
+
 		Cursor = Cursors.WaitCursor;
 
 		listBox1.Items.Clear();
@@ -64,10 +88,22 @@ public partial class Form1 : Form
 			listBox1.Items.Add(item.PessoaId + " - " + item.Nome + " - " + item.TelefoneTexto + " - " + item.Ativo + " - " + item.DetalheTexto);
 
 		Cursor = Cursors.Default;
+
+		button1.Enabled = true;
+		button2.Enabled = true;
+		button3.Enabled = true;
+		button4.Enabled = true;
+		button5.Enabled = true;
 	}
 
 	private async void button3_Click(object sender, EventArgs e)
 	{
+		button1.Enabled = false;
+		button2.Enabled = false;
+		button3.Enabled = false;
+		button4.Enabled = false;
+		button5.Enabled = false;
+
 		Cursor = Cursors.WaitCursor;
 
 		listBox1.Items.Clear();
@@ -77,5 +113,55 @@ public partial class Form1 : Form
 			listBox1.Items.Add(item.PessoaId + " - " + item.Nome);
 
 		Cursor = Cursors.Default;
+
+		button1.Enabled = true;
+		button2.Enabled = true;
+		button3.Enabled = true;
+		button4.Enabled = true;
+		button5.Enabled = true;
 	}
+
+	private async void button4_Click(object sender, EventArgs e)
+	{
+		button1.Enabled = false;
+		button2.Enabled = false;
+		button3.Enabled = false;
+		button4.Enabled = false;
+		button5.Enabled = false;
+
+		Cursor = Cursors.WaitCursor;
+
+		listBox1.Items.Clear();
+
+		var pessoas = await _repository.GetPessoas();
+		foreach (var item in pessoas)
+			listBox1.Items.Add(item.PessoaId + " - " + item.Nome);
+
+		Cursor = Cursors.Default;
+
+		button1.Enabled = true;
+		button2.Enabled = true;
+		button3.Enabled = true;
+		button4.Enabled = true;
+		button5.Enabled = true;
+	}
+
+	private void button5_Click(object sender, EventArgs e)
+	{
+		button1.Enabled = false;
+		button2.Enabled = false;
+		button3.Enabled = false;
+		button4.Enabled = false;
+		button5.Enabled = false;
+
+		listBox1.Items.Clear();
+
+		button1.Enabled = true;
+		button2.Enabled = true;
+		button3.Enabled = true;
+		button4.Enabled = true;
+	}
+
+	// Disable buttons 
 }
+
